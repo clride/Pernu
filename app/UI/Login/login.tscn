@@ -2,6 +2,7 @@
 
 [ext_resource type="Shader" uid="uid://cmufv52v2tspl" path="res://Assets/Shaders/Liquidglass.gdshader" id="1_6hqrn"]
 [ext_resource type="PackedScene" uid="uid://qkrm0m368upr" path="res://UI/Login/background.tscn" id="1_i86tc"]
+[ext_resource type="Script" uid="uid://ba4r0027pjkl6" path="res://UI/Login/login.gd" id="3_4o304"]
 [ext_resource type="Script" uid="uid://r4gbvhopcseh" path="res://UI/Login/intro.gd" id="3_kjh48"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_i86tc"]
@@ -136,14 +137,8 @@ metadata/_edit_lock_ = true
 [node name="Background" parent="." unique_id=1585861469 instance=ExtResource("1_i86tc")]
 layout_mode = 0
 anchors_preset = 0
-anchor_left = 0.0
-anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 0.0
-offset_top = 0.0
-offset_right = 0.0
-offset_bottom = 0.0
 grow_horizontal = 1
 grow_vertical = 1
 
@@ -191,19 +186,18 @@ custom_minimum_size = Vector2(153.755, 172.26)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+script = ExtResource("3_4o304")
 
 [node name="Username" type="LineEdit" parent="LoginProcess/PanelContainer/Login" unique_id=174173909]
 custom_minimum_size = Vector2(0, 30.195)
 layout_mode = 2
 placeholder_text = "Username"
-alignment = 1
 select_all_on_focus = true
 
 [node name="Password" type="LineEdit" parent="LoginProcess/PanelContainer/Login" unique_id=971580071]
 custom_minimum_size = Vector2(0, 30.195)
 layout_mode = 2
 placeholder_text = "Password"
-alignment = 1
 select_all_on_focus = true
 secret = true
 
@@ -227,6 +221,22 @@ layout_mode = 2
 text = "Sign Up"
 uri = "http://127.0.0.1:5000"
 
+[node name="MarginContainer3" type="MarginContainer" parent="LoginProcess/PanelContainer/Login" unique_id=2139899708]
+custom_minimum_size = Vector2(0, 12.675)
+layout_mode = 2
+
+[node name="Info" type="Label" parent="LoginProcess/PanelContainer/Login" unique_id=538207878]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+clip_text = true
+
+[node name="HTTPRequest" type="HTTPRequest" parent="LoginProcess/PanelContainer/Login" unique_id=1430461944]
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1628021511]
 libraries/ = SubResource("AnimationLibrary_4o304")
 script = ExtResource("3_kjh48")
+
+[connection signal="pressed" from="LoginProcess/PanelContainer/Login/Login" to="LoginProcess/PanelContainer/Login" method="_on_login_button_pressed"]
+[connection signal="request_completed" from="LoginProcess/PanelContainer/Login/HTTPRequest" to="LoginProcess/PanelContainer/Login" method="_on_http_request_request_completed"]

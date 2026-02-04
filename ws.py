@@ -40,6 +40,28 @@ def register():
     
     return jsonify({"message": "Account created successfully!"}), 200
 
+# Handle account login
+@app.route('/login', methods=['POST'])
+def login():
+    print(request.get_data())
+    print("Received login request")
+    if not request.is_json:
+        return jsonify({"error": "Expected JSON"}), 400
+
+    data = request.get_json(force=True)
+    username = data.get('username')
+    password = data.get('password')
+
+    print(username)
+    print(password)
+
+    result = db.is_valid_user(username, password)
+
+    if result:
+        return jsonify({"status": "Success!"}), 200
+    else:
+        return jsonify({"status": "Invalid Username or Password!"}), 401
+
 @app.route('/msg', methods=['POST'])
 def msg():
     data = request.get_json()
