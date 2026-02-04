@@ -61,7 +61,7 @@ layout_mode = 2
 [node name="LinkButton" type="LinkButton" parent="Login/CenterContainer" unique_id=1236800948]
 layout_mode = 2
 text = "Sign Up"
-uri = "https://chat.siliconium.org/signup"
+uri = "http://127.0.0.0:5000"
 
 [node name="Panel" type="Panel" parent="." unique_id=1205920962]
 z_index = -10

@@ -31,8 +31,6 @@ theme/default_font_antialiasing=2
 theme/default_font_hinting=2
 theme/default_font_multichannel_signed_distance_field=true
 theme/default_font_generate_mipmaps=true
-theme/custom="res://Assets/Themes/Catppuccin/Catppuccin Frappé.tres"
-theme/custom_font="uid://c4ielbt0hekl7"
 
 [rendering]
 
