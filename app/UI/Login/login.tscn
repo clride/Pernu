@@ -1,0 +1,130 @@
+[gd_scene format=3 uid="uid://ctylr1aydvbrg"]
+
+[ext_resource type="Shader" uid="uid://cmufv52v2tspl" path="res://Assets/Shaders/Liquidglass.gdshader" id="1_6hqrn"]
+
+[sub_resource type="Gradient" id="Gradient_d5pl2"]
+colors = PackedColorArray(0.5294118, 0.4627451, 0.84313726, 1, 0.80784315, 0.6392157, 0.6666667, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_6hqrn"]
+gradient = SubResource("Gradient_d5pl2")
+width = 1865
+height = 1797
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+repeat = 2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i86tc"]
+shader = ExtResource("1_6hqrn")
+shader_parameter/u_roundness = 0.150000007125
+shader_parameter/u_distortion_intensity = -0.1
+shader_parameter/u_blur_intensity = 1.2
+
+[node name="Menu" type="Control" unique_id=33708042]
+layout_mode = 3
+anchor_left = 0.5
+anchor_top = 0.45100003
+anchor_right = 0.5
+anchor_bottom = 0.45100003
+offset_left = -576.0
+offset_top = -292.24802
+offset_right = 576.0
+offset_bottom = 355.75198
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="Background" type="TextureRect" parent="." unique_id=330248413]
+z_index = -10
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -356.5
+offset_top = -574.5
+offset_right = 356.5
+offset_bottom = 574.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_6hqrn")
+metadata/_edit_lock_ = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=1286787122]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -192.0
+offset_top = 40.0
+offset_right = 195.0
+offset_bottom = 142.0
+grow_horizontal = 2
+theme_override_font_sizes/normal_font_size = 44
+bbcode_enabled = true
+text = "Welcome back :)"
+horizontal_alignment = 1
+
+[node name="LoginProcess" type="Control" parent="." unique_id=2077808843]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="PanelContainer" type="PanelContainer" parent="LoginProcess" unique_id=964601669]
+material = SubResource("ShaderMaterial_i86tc")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -122.5
+offset_top = -133.0
+offset_right = 122.5
+offset_bottom = 133.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Login" type="VBoxContainer" parent="LoginProcess/PanelContainer" unique_id=1687818046]
+custom_minimum_size = Vector2(153.755, 172.26)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Username" type="LineEdit" parent="LoginProcess/PanelContainer/Login" unique_id=174173909]
+custom_minimum_size = Vector2(0, 30.195)
+layout_mode = 2
+placeholder_text = "Username"
+alignment = 1
+select_all_on_focus = true
+
+[node name="Password" type="LineEdit" parent="LoginProcess/PanelContainer/Login" unique_id=971580071]
+custom_minimum_size = Vector2(0, 30.195)
+layout_mode = 2
+placeholder_text = "Password"
+alignment = 1
+select_all_on_focus = true
+secret = true
+
+[node name="MarginContainer" type="MarginContainer" parent="LoginProcess/PanelContainer/Login" unique_id=580498989]
+custom_minimum_size = Vector2(0, 12.675)
+layout_mode = 2
+
+[node name="Login" type="Button" parent="LoginProcess/PanelContainer/Login" unique_id=510833809]
+layout_mode = 2
+text = "Login"
+
+[node name="MarginContainer2" type="MarginContainer" parent="LoginProcess/PanelContainer/Login" unique_id=1646071833]
+custom_minimum_size = Vector2(0, 12.675)
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="LoginProcess/PanelContainer/Login" unique_id=661322425]
+layout_mode = 2
+
+[node name="LinkButton" type="LinkButton" parent="LoginProcess/PanelContainer/Login/CenterContainer" unique_id=1236800948]
+layout_mode = 2
+text = "Sign Up"
+uri = "http://127.0.0.1:5000"
