@@ -1,23 +1,123 @@
 [gd_scene format=3 uid="uid://ctylr1aydvbrg"]
 
 [ext_resource type="Shader" uid="uid://cmufv52v2tspl" path="res://Assets/Shaders/Liquidglass.gdshader" id="1_6hqrn"]
-
-[sub_resource type="Gradient" id="Gradient_d5pl2"]
-colors = PackedColorArray(0.5294118, 0.4627451, 0.84313726, 1, 0.80784315, 0.6392157, 0.6666667, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_6hqrn"]
-gradient = SubResource("Gradient_d5pl2")
-width = 1865
-height = 1797
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-repeat = 2
+[ext_resource type="PackedScene" uid="uid://qkrm0m368upr" path="res://UI/Login/background.tscn" id="1_i86tc"]
+[ext_resource type="Script" uid="uid://r4gbvhopcseh" path="res://UI/Login/intro.gd" id="3_kjh48"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_i86tc"]
 shader = ExtResource("1_6hqrn")
 shader_parameter/u_roundness = 0.150000007125
 shader_parameter/u_distortion_intensity = -0.1
 shader_parameter/u_blur_intensity = 1.2
+
+[sub_resource type="Animation" id="Animation_i86tc"]
+resource_name = "Intro"
+length = 1.9615
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RichTextLabel:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": ["", "Welcome Back!"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RichTextLabel:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.1666666, 1.37, 1.64),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(384, 54.035), Vector2(384, 40.4), Vector2(384, 43.03), Vector2(384, 40.4)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("RichTextLabel:theme_override_font_sizes/normal_font_size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [33, 44]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("RichTextLabel:theme_override_colors/default_color")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1.28),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_kjh48"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RichTextLabel:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [""]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RichTextLabel:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(384, 54.035)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("RichTextLabel:theme_override_font_sizes/normal_font_size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [44]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("RichTextLabel:theme_override_colors/default_color")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4o304"]
+_data = {
+&"Intro": SubResource("Animation_i86tc"),
+&"RESET": SubResource("Animation_kjh48")
+}
 
 [node name="Menu" type="Control" unique_id=33708042]
 layout_mode = 3
@@ -33,21 +133,19 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_lock_ = true
 
-[node name="Background" type="TextureRect" parent="." unique_id=330248413]
-z_index = -10
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -356.5
-offset_top = -574.5
-offset_right = 356.5
-offset_bottom = 574.5
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = SubResource("GradientTexture2D_6hqrn")
-metadata/_edit_lock_ = true
+[node name="Background" parent="." unique_id=1585861469 instance=ExtResource("1_i86tc")]
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
 
 [node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=1286787122]
 layout_mode = 1
@@ -55,13 +153,13 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -192.0
-offset_top = 40.0
+offset_top = 54.035
 offset_right = 195.0
-offset_bottom = 142.0
+offset_bottom = 156.0335
 grow_horizontal = 2
+theme_override_colors/default_color = Color(0, 0, 0, 0)
 theme_override_font_sizes/normal_font_size = 44
 bbcode_enabled = true
-text = "Welcome back :)"
 horizontal_alignment = 1
 
 [node name="LoginProcess" type="Control" parent="." unique_id=2077808843]
@@ -128,3 +226,7 @@ layout_mode = 2
 layout_mode = 2
 text = "Sign Up"
 uri = "http://127.0.0.1:5000"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1628021511]
+libraries/ = SubResource("AnimationLibrary_4o304")
+script = ExtResource("3_kjh48")

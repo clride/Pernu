@@ -50,6 +50,16 @@ def msg():
     messages.append(content)
     return jsonify({"status": "Message received"}), 200
 
+@app.route('/msg', methods=['GET'])
+def get_msg():
+    data = request.get_json()
+    auth = data.get('auth')
+    if not db.is_valid_user(auth.get('username'), auth.get('password')):
+        return jsonify({"error": "Authentication failed"}), 401
+    
+    msgs = jsonify(messages)
+    return jsonify({"messages": msgs}), 200
+
 
 if __name__ == '__main__':
     # Run local server

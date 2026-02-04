@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://qkrm0m368upr"]
+
+[sub_resource type="Gradient" id="Gradient_d5pl2"]
+colors = PackedColorArray(0.5294118, 0.4627451, 0.84313726, 1, 0.80784315, 0.6392157, 0.6666667, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_6hqrn"]
+gradient = SubResource("Gradient_d5pl2")
+width = 3440
+height = 2560
+use_hdr = true
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+repeat = 2
+
+[node name="Background" type="TextureRect" unique_id=1585861469]
+z_index = -10
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_6hqrn")
+expand_mode = 1
+stretch_mode = 3
