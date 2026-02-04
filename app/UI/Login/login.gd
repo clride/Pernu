@@ -33,7 +33,7 @@ func _on_login_button_pressed() -> void:
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 	
-func _on_http_request_request_completed(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray) -> void:
+func _on_http_request_request_completed(_result: int, response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
 	var json = JSON.new()
 	json.parse(body.get_string_from_utf8())
 	var response = json.get_data()
