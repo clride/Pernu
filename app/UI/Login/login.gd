@@ -37,7 +37,12 @@ func _on_http_request_request_completed(_result: int, response_code: int, _heade
 	var json = JSON.new()
 	json.parse(body.get_string_from_utf8())
 	var response = json.get_data()
-	print(response)
+	
+	if response == null:
+		info.add_theme_color_override("font_color", Color(1.0, 0.828, 0.799, 1.0))
+		info.text = "Network Error. Please Try Again Later"
+		return
+
 	info.text = response.status
 	
 	if response_code == 200:
