@@ -14,6 +14,18 @@ def home():
         html = f.read()
     return render_template_string(html)
 
+@app.route('/styles.css')
+def styles():
+    with open("frontend/styles.css") as f:
+        css = f.read()
+    return css, 200, {'Content-Type': 'text/css'}
+
+@app.route('/create_account.js')
+def create_account_js():
+    with open("frontend/create_account.js") as f:
+        js = f.read()
+    return js, 200, {'Content-Type': 'application/javascript'}
+
 # Handle account creation
 @app.route('/register', methods=['POST'])
 def register():
