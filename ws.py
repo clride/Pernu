@@ -43,18 +43,12 @@ def register():
 # Handle account login
 @app.route('/login', methods=['POST'])
 def login():
-    print(request.get_data())
-    print("Received login request")
     if not request.is_json:
         return jsonify({"error": "Expected JSON"}), 400
 
     data = request.get_json(force=True)
     username = data.get('username')
     password = data.get('password')
-
-    print(username)
-    print(password)
-
     result = db.is_valid_user(username, password)
 
     if result:
