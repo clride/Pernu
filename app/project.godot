@@ -20,6 +20,10 @@ config/features=PackedStringArray("4.6", "Forward Plus")
 run/low_processor_mode=true
 config/icon="res://icon.svg"
 
+[autoload]
+
+Config="*uid://by3klwqvjr4ln"
+
 [display]
 
 window/stretch/mode="canvas_items"
@@ -31,6 +35,7 @@ theme/default_font_antialiasing=2
 theme/default_font_hinting=2
 theme/default_font_multichannel_signed_distance_field=true
 theme/default_font_generate_mipmaps=true
+theme/custom_font="uid://bnfpdytx1dkxk"
 
 [rendering]
 

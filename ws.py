@@ -40,6 +40,28 @@ def register():
     
     return jsonify({"message": "Account created successfully!"}), 200
 
+# Handle account login
+@app.route('/login', methods=['POST'])
+def login():
+    print(request.get_data())
+    print("Received login request")
+    if not request.is_json:
+        return jsonify({"error": "Expected JSON"}), 400
+
+    data = request.get_json(force=True)
+    username = data.get('username')
+    password = data.get('password')
+
+    print(username)
+    print(password)
+
+    result = db.is_valid_user(username, password)
+
+    if result:
+        return jsonify({"status": "Success!"}), 200
+    else:
+        return jsonify({"status": "Invalid Username or Password!"}), 401
+
 @app.route('/msg', methods=['POST'])
 def msg():
     data = request.get_json()
@@ -49,6 +71,16 @@ def msg():
     content = data.get('content')
     messages.append(content)
     return jsonify({"status": "Message received"}), 200
+
+@app.route('/msg', methods=['GET'])
+def get_msg():
+    data = request.get_json()
+    auth = data.get('auth')
+    if not db.is_valid_user(auth.get('username'), auth.get('password')):
+        return jsonify({"error": "Authentication failed"}), 401
+    
+    msgs = jsonify(messages)
+    return jsonify({"messages": msgs}), 200
 
 
 if __name__ == '__main__':

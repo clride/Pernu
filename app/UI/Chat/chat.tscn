@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://cpuuiy4wqpu4u"]
+
+[ext_resource type="PackedScene" uid="uid://qkrm0m368upr" path="res://UI/Login/background.tscn" id="1_u4wwk"]
+
+[node name="Chat" type="Control" unique_id=1868083925]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" parent="." unique_id=1585861469 instance=ExtResource("1_u4wwk")]
+layout_mode = 1
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="Scroll" type="ScrollContainer" parent="." unique_id=1539423603]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.26041666
+anchor_top = 0.043209877
+anchor_right = 0.6979167
+anchor_bottom = 0.86882716
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Scroll" unique_id=1722533064]
+layout_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="LineEdit" type="LineEdit" parent="." unique_id=1266123946]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.24300002
+anchor_top = 0.901
+anchor_right = 0.71500003
+anchor_bottom = 0.98800004
+offset_left = 0.06399536
+offset_top = -0.84802246
+offset_right = 0.3199463
+offset_bottom = -0.22399902

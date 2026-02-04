@@ -9,7 +9,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, #667eea, #764ba2);
+    background: linear-gradient(-10deg, #cea3aa, #8776d7);
 }
 
 .login-card {
