@@ -10,9 +10,17 @@ func _on_login_button_pressed() -> void:
 		"Content-Type: application/json"
 	])
 
+	var username: String = username_field.text
+	var password: String = password_field.text
+	
+	if username == "" or password == "": return
+	
+	Config.username = username
+	Config.password = password
+
 	var body = JSON.stringify({
-		"username": username_field.text,
-		"password": password_field.text
+		"username": username,
+		"password": password
 	})
 
 	var error = http_request.request(
