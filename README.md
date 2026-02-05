@@ -15,7 +15,7 @@
 
 # Current Goals
 
-- [ ] Implement a very simple message system across server and client simple message system across server and client
+- [ ] Implement a very simple message system across server and client
 - [ ] Generate auth tokens on the server
 - [ ] Store authentication tokens in the OS keychain / auto login
 - [ ] Consider switching from SQLite to PostgreSQL
