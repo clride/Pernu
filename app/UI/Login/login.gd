@@ -5,11 +5,16 @@ extends VBoxContainer
 @onready var http_request: HTTPRequest = $HTTPRequest
 @onready var info: Label = $Info
 
-func _on_login_button_pressed() -> void:
-	var headers = PackedStringArray([
-		"Content-Type: application/json"
-	])
+func show_info(text: String, is_error: bool):
+	var color: Color = Color("ffff")
+	
+	if is_error:
+		color = Color(1.0, 0.828, 0.799, 1.0)
+	
+	info.add_theme_color_override("font_color", color)
+	info.text = text
 
+func _on_login_button_pressed() -> void:
 	var username: String = username_field.text
 	var password: String = password_field.text
 	
@@ -22,30 +27,23 @@ func _on_login_button_pressed() -> void:
 		"username": username,
 		"password": password
 	})
-
-	var error = http_request.request(
-		Config.ENDPOINT_URL + "/login",
-		headers,
-		HTTPClient.METHOD_POST,
-		body
-	)
-
-	if error != OK:
-		push_error("An error occurred in the HTTP request.")
 	
-func _on_http_request_request_completed(_result: int, response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
-	var json = JSON.new()
-	json.parse(body.get_string_from_utf8())
-	var response = json.get_data()
-	
-	if response == null:
-		info.add_theme_color_override("font_color", Color(1.0, 0.828, 0.799, 1.0))
-		info.text = "Network Error. Please Try Again Later"
+	var req = APIClient.new()
+	add_child(req)
+	var result = await req.send_message("/login", body)
+
+	if not result or result[0] == 0:
+		print("[LOGIN] An error occurred in the HTTP request.")
+		show_info("Network Error.", true)
 		return
 
-	info.text = response.status
+	var status_code = result[0]
+	var response_body = result[1]
 	
-	if response_code == 200:
-		info.add_theme_color_override("font_color", Color(1.0, 1.0, 1.0, 1.0))
+	var result_text = response_body.status
+	
+	if status_code == 200:
+		show_info(result_text, false)
 	else:
-		info.add_theme_color_override("font_color", Color(1.0, 0.828, 0.799, 1.0))
+		show_info(result_text, true)
+	
