@@ -1,8 +1,6 @@
 # chatapp
 
-```
-![Alt text](documentation/picures/Chat.png)
-```
+![A showcase of the Chat UI Prototype](documentation/picures/Chat.png)
 
 - This is the repository of chatapp (no name currently), it contains frontend (web) backend (database (SQLite), python), and cross-platform app (godot-widgets)
 - My first full-stack kind of project
