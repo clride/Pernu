@@ -1,4 +1,5 @@
 sqlalchemy
 argon2-cffi
 flask
+flask-socketio
 wheel
