@@ -44,6 +44,8 @@ func attempt_login():
 	
 	if status_code == 200:
 		show_info(result_text, false)
+		await get_tree().create_timer(0.4).timeout
+		get_tree().change_scene_to_file("uid://cpuuiy4wqpu4u")
 	else:
 		show_info(result_text, true)
 
