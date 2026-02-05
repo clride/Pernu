@@ -12,4 +12,8 @@
 
 # Current Goals
 
+- Add a chatting interface to the desktop app
+- Generate auth tokens on the server
+- Store authentication tokens in the OS keychain / auto login
 - Implement a very simple message system across server and client
+- Consider switching from SQLite to PostgreSQL
