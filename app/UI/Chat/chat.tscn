@@ -1,6 +1,17 @@
 [gd_scene format=3 uid="uid://cpuuiy4wqpu4u"]
 
 [ext_resource type="PackedScene" uid="uid://qkrm0m368upr" path="res://UI/Login/background.tscn" id="1_u4wwk"]
+[ext_resource type="Script" uid="uid://tl5ls5wbyspo" path="res://UI/Chat/chatcontroller.gd" id="2_08j6n"]
+[ext_resource type="Script" uid="uid://4vjj6yvmab6q" path="res://UI/Chat/send_message.gd" id="3_6868q"]
+[ext_resource type="Script" uid="uid://bv2jcrmy2x5r2" path="res://Objects/api_client.gd" id="4_n1qtt"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u4wwk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u4wwk"]
+bg_color = Color(0.01955414, 0.019554144, 0.019554114, 1)
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_detail = 13
 
 [node name="Chat" type="Control" unique_id=1868083925]
 layout_mode = 3
@@ -15,7 +26,8 @@ layout_mode = 1
 grow_horizontal = 1
 grow_vertical = 1
 
-[node name="Scroll" type="ScrollContainer" parent="." unique_id=1539423603]
+[node name="ChatHistory" type="ScrollContainer" parent="." unique_id=1539423603]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.26041666
@@ -28,20 +40,59 @@ offset_right = 20.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
+horizontal_scroll_mode = 0
+script = ExtResource("2_08j6n")
 metadata/_edit_use_anchors_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Scroll" unique_id=1722533064]
+[node name="VBoxContainer" type="VBoxContainer" parent="ChatHistory" unique_id=1722533064]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 metadata/_edit_use_anchors_ = true
 
-[node name="LineEdit" type="LineEdit" parent="." unique_id=1266123946]
+[node name="BottomBar" type="HBoxContainer" parent="." unique_id=1276907065]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.24300002
-anchor_top = 0.901
-anchor_right = 0.71500003
-anchor_bottom = 0.98800004
-offset_left = 0.06399536
-offset_top = -0.84802246
-offset_right = 0.3199463
-offset_bottom = -0.22399902
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -48.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Chat" type="LineEdit" parent="BottomBar" unique_id=1266123946]
+custom_minimum_size = Vector2(316.84, 39.195)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+theme_override_styles/focus = SubResource("StyleBoxEmpty_u4wwk")
+placeholder_text = "Enter your message here..."
+keep_editing_on_text_submit = true
+context_menu_enabled = false
+script = ExtResource("3_6868q")
+
+[node name="SendButton" type="Button" parent="BottomBar/Chat" unique_id=1616938993]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -4.839966
+offset_top = -19.597473
+offset_right = 32.160034
+offset_bottom = 19.402527
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_u4wwk")
+text = ">"
+
+[node name="SendMessage" type="Node" parent="BottomBar/Chat" unique_id=2111727913]
+script = ExtResource("4_n1qtt")
+metadata/_custom_type_script = "uid://bv2jcrmy2x5r2"
+
+[connection signal="resized" from="ChatHistory/VBoxContainer" to="ChatHistory" method="_on_v_box_container_resized"]
+[connection signal="text_submitted" from="BottomBar/Chat" to="BottomBar/Chat" method="_on_text_submitted"]
+[connection signal="button_up" from="BottomBar/Chat/SendButton" to="BottomBar/Chat" method="_on_send_button_button_up"]

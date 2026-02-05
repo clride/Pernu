@@ -17,6 +17,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 config/name="App"
 run/main_scene="uid://ctylr1aydvbrg"
 config/features=PackedStringArray("4.6", "Forward Plus")
+run/max_fps=240
 run/low_processor_mode=true
 config/icon="res://icon.svg"
 
@@ -26,6 +27,7 @@ Config="*uid://by3klwqvjr4ln"
 
 [display]
 
+window/size/mode=2
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
@@ -40,6 +42,13 @@ theme/default_font_hinting=2
 theme/default_font_multichannel_signed_distance_field=true
 theme/default_font_generate_mipmaps=true
 theme/custom_font="uid://bnfpdytx1dkxk"
+
+[input]
+
+send={
+"deadzone": 0.2,
+"events": []
+}
 
 [rendering]
 
