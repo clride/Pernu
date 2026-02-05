@@ -17,3 +17,4 @@
 - Store authentication tokens in the OS keychain / auto login
 - Implement a very simple message system across server and client
 - Consider switching from SQLite to PostgreSQL
+- Implement the Server as a docker container
