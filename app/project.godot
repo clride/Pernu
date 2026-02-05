@@ -29,6 +29,10 @@ Config="*uid://by3klwqvjr4ln"
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
+[dotnet]
+
+project/assembly_name="App"
+
 [gui]
 
 theme/default_font_antialiasing=2

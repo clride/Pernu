@@ -1,6 +1,8 @@
 import getpass
-import database.db as db
-#from report import Report
+import sys
+
+sys.path.append('..')
+from database import db as db
 
 def main():
     db.ensure_db()

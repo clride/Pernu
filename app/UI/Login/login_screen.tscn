@@ -1,0 +1,80 @@
+[gd_scene format=3 uid="uid://uacj3mlk22kl"]
+
+[ext_resource type="Shader" uid="uid://cmufv52v2tspl" path="res://Assets/Shaders/Liquidglass.gdshader" id="1_10f72"]
+[ext_resource type="Script" uid="uid://ba4r0027pjkl6" path="res://UI/Login/login.gd" id="2_to5m1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i86tc"]
+shader = ExtResource("1_10f72")
+shader_parameter/u_roundness = 0.150000007125
+shader_parameter/u_distortion_intensity = -0.1
+shader_parameter/u_blur_intensity = 1.2
+
+[node name="LoginScreen" type="PanelContainer" unique_id=1783463125]
+material = SubResource("ShaderMaterial_i86tc")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -122.5
+offset_top = -133.0
+offset_right = 122.5
+offset_bottom = 133.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Login" type="VBoxContainer" parent="." unique_id=952548273]
+custom_minimum_size = Vector2(153.755, 172.26)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("2_to5m1")
+
+[node name="Username" type="LineEdit" parent="Login" unique_id=1150955746]
+custom_minimum_size = Vector2(0, 30.195)
+layout_mode = 2
+placeholder_text = "Username"
+select_all_on_focus = true
+
+[node name="Password" type="LineEdit" parent="Login" unique_id=75313564]
+custom_minimum_size = Vector2(0, 30.195)
+layout_mode = 2
+placeholder_text = "Password"
+select_all_on_focus = true
+secret = true
+
+[node name="MarginContainer" type="MarginContainer" parent="Login" unique_id=1614032070]
+custom_minimum_size = Vector2(0, 12.675)
+layout_mode = 2
+
+[node name="Login" type="Button" parent="Login" unique_id=1601120339]
+layout_mode = 2
+text = "Login"
+
+[node name="MarginContainer2" type="MarginContainer" parent="Login" unique_id=793057814]
+custom_minimum_size = Vector2(0, 12.675)
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="Login" unique_id=1239683780]
+layout_mode = 2
+
+[node name="LinkButton" type="LinkButton" parent="Login/CenterContainer" unique_id=1296858142]
+layout_mode = 2
+text = "Sign Up"
+uri = "http://127.0.0.1:5000"
+
+[node name="MarginContainer3" type="MarginContainer" parent="Login" unique_id=124893321]
+custom_minimum_size = Vector2(0, 12.675)
+layout_mode = 2
+
+[node name="Info" type="Label" parent="Login" unique_id=205208186]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+clip_text = true
+
+[node name="HTTPRequest" type="HTTPRequest" parent="Login" unique_id=619103]
+
+[connection signal="pressed" from="Login/Login" to="Login" method="_on_login_button_pressed"]
+[connection signal="request_completed" from="Login/HTTPRequest" to="Login" method="_on_http_request_request_completed"]

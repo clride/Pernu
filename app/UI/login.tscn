@@ -1,0 +1,113 @@
+[gd_scene format=3 uid="uid://ctylr1aydvbrg"]
+
+[ext_resource type="PackedScene" uid="uid://qkrm0m368upr" path="res://UI/Login/background.tscn" id="1_2c6ok"]
+[ext_resource type="PackedScene" uid="uid://uacj3mlk22kl" path="res://UI/Login/login_screen.tscn" id="2_ub3nb"]
+[ext_resource type="Script" uid="uid://r4gbvhopcseh" path="res://UI/Login/intro.gd" id="3_sljnk"]
+
+[sub_resource type="Animation" id="Animation_2c6ok"]
+resource_name = "Intro"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RichTextLabel:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": ["", "Welcome!"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RichTextLabel:theme_override_colors/default_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ub3nb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RichTextLabel:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [""]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RichTextLabel:theme_override_colors/default_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sljnk"]
+_data = {
+&"Intro": SubResource("Animation_2c6ok"),
+&"RESET": SubResource("Animation_ub3nb")
+}
+
+[node name="Menu" type="Control" unique_id=33708042]
+layout_mode = 3
+anchor_left = 0.5
+anchor_top = 0.45100003
+anchor_right = 0.5
+anchor_bottom = 0.45100003
+offset_left = -576.0
+offset_top = -292.24802
+offset_right = 576.0
+offset_bottom = 355.75198
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="Background" parent="." unique_id=1585861469 instance=ExtResource("1_2c6ok")]
+layout_mode = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=1286787122]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -192.0
+offset_top = 54.035
+offset_right = 195.0
+offset_bottom = 156.0335
+grow_horizontal = 2
+theme_override_colors/default_color = Color(0, 0, 0, 0)
+theme_override_font_sizes/normal_font_size = 44
+bbcode_enabled = true
+horizontal_alignment = 1
+
+[node name="LoginProcess" type="Control" parent="." unique_id=2077808843]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="PanelContainer" parent="LoginProcess" unique_id=1783463125 instance=ExtResource("2_ub3nb")]
+layout_mode = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=528919352]
+libraries/ = SubResource("AnimationLibrary_sljnk")
+script = ExtResource("3_sljnk")
