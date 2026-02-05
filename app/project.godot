@@ -41,6 +41,13 @@ theme/default_font_multichannel_signed_distance_field=true
 theme/default_font_generate_mipmaps=true
 theme/custom_font="uid://bnfpdytx1dkxk"
 
+[input]
+
+send={
+"deadzone": 0.2,
+"events": []
+}
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

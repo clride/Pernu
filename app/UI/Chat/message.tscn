@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://b12bjhi2dlfg6"]
+
+[ext_resource type="Script" uid="uid://7tltv4vik52k" path="res://UI/Chat/message.gd" id="1_5lsbo"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_nlcoe"]
+load_path = "res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex"
+
+[node name="Message" type="HBoxContainer" unique_id=747850803]
+offset_right = 150.0
+offset_bottom = 20.0
+script = ExtResource("1_5lsbo")
+
+[node name="ProfilePicture" type="TextureRect" parent="." unique_id=1957378607]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+texture = SubResource("CompressedTexture2D_nlcoe")
+expand_mode = 1
+
+[node name="UsernameAndMsg" type="VBoxContainer" parent="." unique_id=1659319087]
+layout_mode = 2
+
+[node name="Username" type="Label" parent="UsernameAndMsg" unique_id=1279711711]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8784314, 1, 1, 1)
+text = "Username"
+
+[node name="Message" type="Label" parent="UsernameAndMsg" unique_id=1157313951]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Hi Hello what's up"

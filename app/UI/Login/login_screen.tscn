@@ -2,6 +2,7 @@
 
 [ext_resource type="Shader" uid="uid://cmufv52v2tspl" path="res://Assets/Shaders/Liquidglass.gdshader" id="1_10f72"]
 [ext_resource type="Script" uid="uid://ba4r0027pjkl6" path="res://UI/Login/login.gd" id="2_to5m1"]
+[ext_resource type="Script" uid="uid://bv2jcrmy2x5r2" path="res://Objects/api_client.gd" id="3_to5m1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_i86tc"]
 shader = ExtResource("1_10f72")
@@ -74,7 +75,10 @@ theme_override_font_sizes/font_size = 10
 horizontal_alignment = 1
 clip_text = true
 
-[node name="HTTPRequest" type="HTTPRequest" parent="Login" unique_id=619103]
+[node name="LoginMessagePost" type="Node" parent="Login" unique_id=1333784711]
+script = ExtResource("3_to5m1")
+metadata/_custom_type_script = "uid://bv2jcrmy2x5r2"
 
+[connection signal="text_submitted" from="Login/Username" to="Login" method="_on_username_text_submitted"]
+[connection signal="text_submitted" from="Login/Password" to="Login" method="_on_password_text_submitted"]
 [connection signal="pressed" from="Login/Login" to="Login" method="_on_login_button_pressed"]
-[connection signal="request_completed" from="Login/HTTPRequest" to="Login" method="_on_http_request_request_completed"]

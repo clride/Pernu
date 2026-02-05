@@ -2,7 +2,10 @@ class_name APIClient
 extends Node
 
 ## A custom class that deals with API specific things
-## and streamlines the HTTP request workflow
+## and streamlines the HTTP request workflow.
+## Important: an APIClient can only send one request
+## at a time. Create different clients for different
+## purposes to avoid unneccessary delays.
 
 var http_send = HTTPRequest.new()
 
