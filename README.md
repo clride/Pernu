@@ -9,9 +9,9 @@
 
 # Current feature state
 
-- Account creation and login [x]
-- passwords are hashed and stored in a database [x]
-- Chatting Interface on the desktop app [x]
+- [x] Account creation and login
+- [x] passwords are hashed and stored in a database
+- [x] Chatting Interface on the desktop app
 
 # Current Goals
 
