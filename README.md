@@ -1,5 +1,7 @@
 # chatapp
 
+![A showcase of the Chat UI Prototype](documentation/pictures/Chat.png)
+
 - This is the repository of chatapp (no name currently), it contains frontend (web) backend (database (SQLite), python), and cross-platform app (godot-widgets)
 - My first full-stack kind of project
 - PIP dependencies are listed in pip.txt => run pip install -r pip.txt
@@ -7,14 +9,14 @@
 
 # Current feature state
 
-- Account creation and login [x]
-- passwords are hashed and stored in a database [x]
-- Chatting Interface on the desktop app [x]
+- [x] Account creation and login
+- [x] passwords are hashed and stored in a database
+- [x] Chatting Interface on the desktop app
 
 # Current Goals
 
-- Implement a very simple message system across server and client simple message system across server and client
-- Generate auth tokens on the server
-- Store authentication tokens in the OS keychain / auto login
-- Consider switching from SQLite to PostgreSQL
-- Implement the Server as a docker container
+- [ ] Implement a very simple message system across server and client
+- [ ] Generate auth tokens on the server
+- [ ] Store authentication tokens in the OS keychain / auto login
+- [ ] Consider switching from SQLite to PostgreSQL
+- [ ] Implement the Server as a docker container
