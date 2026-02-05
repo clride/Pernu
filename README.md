@@ -7,14 +7,14 @@
 
 # Current feature state
 
-- Account creation and login
-- passwords are hashed and stored in a database
+- Account creation and login [x]
+- passwords are hashed and stored in a database [x]
+- Chatting Interface on the desktop app [x]
 
 # Current Goals
 
-- Add a chatting interface to the desktop app
+- Implement a very simple message system across server and client simple message system across server and client
 - Generate auth tokens on the server
 - Store authentication tokens in the OS keychain / auto login
-- Implement a very simple message system across server and client
 - Consider switching from SQLite to PostgreSQL
 - Implement the Server as a docker container
