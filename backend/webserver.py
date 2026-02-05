@@ -1,33 +1,38 @@
+import os
 from flask import Flask, request, jsonify, render_template_string
+import sys
 
-from database import db
+sys.path.append('..')
+from database import db as db
 
-app = Flask(__name__)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = os.path.abspath(os.path.join(BASE_DIR, ".."))
+FRONTEND_DIR = os.path.join(PROJECT_ROOT, "frontend")
+
+flaskapp = Flask(__name__)
 
 global messages
 messages: list[str] = []
 
-# Serve your login page
-@app.route('/')
+@flaskapp.route('/')
 def home():
-    with open("frontend/index.html") as f:
+    with open(os.path.join(FRONTEND_DIR, "index.html")) as f:
         html = f.read()
     return render_template_string(html)
 
-@app.route('/styles.css')
+@flaskapp.route('/styles.css')
 def styles():
-    with open("frontend/styles.css") as f:
+    with open(os.path.join(FRONTEND_DIR, "styles.css")) as f:
         css = f.read()
     return css, 200, {'Content-Type': 'text/css'}
 
-@app.route('/create_account.js')
+@flaskapp.route('/create_account.js')
 def create_account_js():
-    with open("frontend/create_account.js") as f:
+    with open(os.path.join(FRONTEND_DIR, "create_account.js")) as f:
         js = f.read()
     return js, 200, {'Content-Type': 'application/javascript'}
 
-# Handle account creation
-@app.route('/register', methods=['POST'])
+@flaskapp.route('/register', methods=['POST'])
 def register():
     print("Received registration request")
     data = request.get_json()
@@ -40,8 +45,7 @@ def register():
     
     return jsonify({"message": "Account created successfully!"}), 200
 
-# Handle account login
-@app.route('/login', methods=['POST'])
+@flaskapp.route('/login', methods=['POST'])
 def login():
     if not request.is_json:
         return jsonify({"error": "Expected JSON"}), 400
@@ -56,7 +60,7 @@ def login():
     else:
         return jsonify({"status": "Invalid Username or Password!"}), 401
 
-@app.route('/msg', methods=['POST'])
+@flaskapp.route('/msg', methods=['POST'])
 def msg():
     data = request.get_json()
     auth = data.get('auth')
@@ -66,7 +70,7 @@ def msg():
     messages.append(content)
     return jsonify({"status": "Message received"}), 200
 
-@app.route('/msg', methods=['GET'])
+@flaskapp.route('/msg', methods=['GET'])
 def get_msg():
     data = request.get_json()
     auth = data.get('auth')
@@ -78,6 +82,6 @@ def get_msg():
 
 
 if __name__ == '__main__':
-    # Run local server
+    print(sys.path)
     db.ensure_db()
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    flaskapp.run(host='0.0.0.0', port=5000, debug=True)

@@ -1,1 +1,1 @@
-DB_FILE_NAME = "database/users.db"
+DB_FILE_NAME = "users.db"
