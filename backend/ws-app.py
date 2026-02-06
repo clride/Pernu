@@ -1,3 +1,6 @@
+## Flask App which serves the WebAssembly frontend for the chat
+## client. Experimental
+
 from pathlib import Path
 
 from flask import Flask, send_from_directory, abort, Response
@@ -28,6 +31,10 @@ def create_app(root: str | Path) -> Flask:
     @app.route("/<path:path>")
     def serve_files(path: str):
         target = (root / path).resolve()
+
+        # For emergencies if it somehow gets misconfigured
+        if str(target) == "/" or str(target) == "":
+            raise RuntimeError("Do not serve the root directory!")
 
         # Block directory traversal
         if not str(target).startswith(str(root)):

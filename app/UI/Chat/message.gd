@@ -18,8 +18,8 @@ func update_vis():
 		$UsernameAndMsg/Username.text = "You"
 	else:
 		alignment = BoxContainer.ALIGNMENT_BEGIN
-		move_child($ProfilePicture, 1)
-		move_child($UsernameAndMsg, 0)
+		move_child($ProfilePicture, 0)
+		move_child($UsernameAndMsg, 1)
 		$UsernameAndMsg/Username.horizontal_alignment = ALIGNMENT_BEGIN
 		$UsernameAndMsg/Username.text = username
 		

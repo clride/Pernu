@@ -2,19 +2,19 @@ import getpass
 import sys
 
 sys.path.append('..')
-from database import db as db
+from database import admin as admin
 
 def main():
-    db.ensure_db()
+    admin.ensure_db()
 
-    print("Current users:", db.list_users())
+    print("Current users:", admin.list_users())
 
     login_success = False
 
     while not login_success:
         login_name = input("Login - Enter username: ")
         login_password = getpass.getpass("Login - Enter password: ")
-        if db.is_valid_user(login_name, login_password):
+        if admin.is_valid_user(login_name, login_password):
             print("Login successful!")  
             login_success = True
         else:

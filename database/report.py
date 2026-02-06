@@ -1,3 +1,5 @@
+## User friendly way to return information to the frontend
+
 class Report():
     is_error = False
     information = ""

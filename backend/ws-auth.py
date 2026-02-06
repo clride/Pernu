@@ -1,9 +1,11 @@
+## Routes login attempts and serves the account creation page.
+
 import os
 from flask import Flask, request, jsonify, render_template_string
 import sys
 
 sys.path.append('..')
-from database import db as db
+from database import admin as admin
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.abspath(os.path.join(BASE_DIR, ".."))
@@ -36,7 +38,7 @@ def register():
     username = data.get('username')
     password = data.get('password')
 
-    result = db.create_user(username, password)
+    result = admin.create_user(username, password)
     if result.is_error:
         return jsonify({"error": result.information}), 400
     
@@ -50,7 +52,7 @@ def login():
     data = request.get_json(force=True)
     username = data.get('username')
     password = data.get('password')
-    result = db.is_valid_user(username, password)
+    result = admin.is_valid_user(username, password)
 
     if result:
         return jsonify({"status": "Success!"}), 200
@@ -59,5 +61,5 @@ def login():
 
 if __name__ == '__main__':
     print(sys.path)
-    db.ensure_db()
+    admin.ensure_db()
     flaskapp.run(host='0.0.0.0', port=5000, debug=True)

@@ -2,7 +2,7 @@
 
 [ext_resource type="Shader" uid="uid://cmufv52v2tspl" path="res://Assets/Shaders/Liquidglass.gdshader" id="1_10f72"]
 [ext_resource type="Script" uid="uid://ba4r0027pjkl6" path="res://UI/Login/login.gd" id="2_to5m1"]
-[ext_resource type="Script" uid="uid://bv2jcrmy2x5r2" path="res://Objects/api_client.gd" id="3_to5m1"]
+[ext_resource type="Script" uid="uid://bv2jcrmy2x5r2" path="res://Src/api_client.gd" id="3_to5m1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_i86tc"]
 shader = ExtResource("1_10f72")
