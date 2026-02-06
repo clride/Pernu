@@ -15,6 +15,7 @@ custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_nlcoe")
 expand_mode = 1
+stretch_mode = 4
 
 [node name="UsernameAndMsg" type="VBoxContainer" parent="." unique_id=1659319087]
 layout_mode = 2
