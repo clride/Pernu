@@ -40,14 +40,14 @@ def register():
 
     result = admin.create_user(username, password)
     if result.is_error:
-        return jsonify({"error": result.information}), 400
+        return jsonify({"message": result.information}), 400
     
     return jsonify({"message": "Account created successfully!"}), 200
 
 @flaskapp.route('/login', methods=['POST'])
 def login():
     if not request.is_json:
-        return jsonify({"error": "Expected JSON"}), 400
+        return jsonify({"message": "Expected JSON"}), 400
 
     data = request.get_json(force=True)
     username = data.get('username')
