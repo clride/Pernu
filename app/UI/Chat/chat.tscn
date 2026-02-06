@@ -21,8 +21,6 @@ grow_vertical = 2
 
 [node name="Background" parent="." unique_id=1585861469 instance=ExtResource("1_u4wwk")]
 layout_mode = 1
-grow_horizontal = 1
-grow_vertical = 1
 
 [node name="ChatHistory" type="ScrollContainer" parent="." unique_id=1539423603]
 unique_name_in_owner = true
