@@ -11,6 +11,7 @@ signal disconnected
 signal message_received(data: Variant)
 
 @export var endpoint: String = Config.SOCKET_URL
+var is_connected: bool = false
 
 # Our WebSocketClient instance.
 var socket = WebSocketPeer.new()
@@ -19,13 +20,14 @@ var last_state = WebSocketPeer.STATE_CLOSED
 func send_json(data: Variant):
 	socket.send_text(JSON.stringify(data))
 
-func _ready():
+func initialize():
+	print("[SocketClient] Running Ready!")
 	# Initiate connection to the given URL.
 	var err = socket.connect_to_url(endpoint)
 	if err == OK:
-		print("Connecting to %s..." % endpoint)
+		print("[SocketClient] Connecting to %s..." % endpoint)
 	else:
-		push_error("Unable to connect.")
+		push_error("[SocketClient] Unable to connect.")
 		set_process(false)
 
 func _on_string_packet(data: String):
@@ -45,6 +47,7 @@ func _process(_delta):
 	# `WebSocketPeer.STATE_OPEN` means the socket is connected and ready
 	# to send and receive data.
 	if state == WebSocketPeer.STATE_OPEN:
+		is_connected = true
 		if last_state == WebSocketPeer.STATE_CLOSED:
 			connected.emit()
 		
@@ -52,11 +55,11 @@ func _process(_delta):
 			var packet = socket.get_packet()
 			if socket.was_string_packet():
 				var packet_text = packet.get_string_from_utf8()
-				print("< Got text data from server: %s" % packet_text)
+				print("[SocketClient] Got text data from server: %s" % packet_text)
 				message_received.emit(packet_text)
 				_on_string_packet(packet_text)
 			else:
-				print("< Got binary data from server: %d bytes" % packet.size())
+				print("[SocketClient] Got binary data from server: %d bytes" % packet.size())
 				message_received.emit(packet)
 	# `WebSocketPeer.STATE_CLOSING` means the socket is closing.
 	# It is important to keep polling for a clean close.
@@ -67,7 +70,11 @@ func _process(_delta):
 	# It is now safe to stop polling.
 	elif state == WebSocketPeer.STATE_CLOSED:
 		# The code will be `-1` if the disconnection was not properly notified by the remote peer.
+		is_connected = false
 		disconnected.emit()
 		var code = socket.get_close_code()
-		print("WebSocket closed with code: %d. Clean: %s" % [code, code != -1])
+		print("[SocketClient] WebSocket closed with code: %d. Clean: %s" % [code, code != -1])
 		set_process(false) # Stop processing.
+
+func _ready() -> void:
+	initialize()

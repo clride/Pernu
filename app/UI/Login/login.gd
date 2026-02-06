@@ -34,7 +34,7 @@ func attempt_login():
 
 	if not result or result[0] == 0:
 		print("[LOGIN] An error occurred in the HTTP request.")
-		show_info("Network Error.", true)
+		show_info("Auth Server unreachable.", true)
 		return
 
 	var status_code = result[0]
