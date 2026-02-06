@@ -53,7 +53,8 @@ def websocket(ws):
                         print(f"User claiming to be '{username}' failed authentication")
                         clients.discard(client)
                         break
-                print("Unauthenticated client message, ignoring")
+                else:
+                    print("Unauthenticated client message, ignoring: " + str(msg))
                 continue
 
             if msg.get("type") == "message":
@@ -62,6 +63,8 @@ def websocket(ws):
                     "user": client.username,
                     "text": msg.get("text", ""),
                 })
+
+                print(f"{client.username} sent a message: {msg.get('text', '')}")
 
                 # broadcast to everyone
                 for current in list(clients):
