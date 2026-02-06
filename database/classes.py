@@ -1,3 +1,6 @@
+## Classes which should be used by SQLAlchemy to create
+## database tables, and functions to initialize the database connection.
+
 from sqlalchemy import String, create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker, Mapped, mapped_column
 import globals

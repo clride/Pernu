@@ -1,7 +1,7 @@
 class_name ChatController
 extends ScrollContainer
 
-@onready var vbox = $VBoxContainer
+@onready var vbox = $ChatContainer
 
 @export var scroll_threshold = 1000
 
@@ -30,10 +30,10 @@ func _on_v_box_container_resized() -> void:
 	# of a scroll container updates
 	# so we just wait a couple frames
 	# before snapping the scroll bar down
-	await get_tree().process_frame
-	await get_tree().process_frame
-	await get_tree().process_frame
-	await get_tree().process_frame
+	#await get_tree().process_frame
+	#await get_tree().process_frame
+	#await get_tree().process_frame
+	#await get_tree().process_frame
 	await get_tree().process_frame
 	await get_tree().process_frame
 	snap_to_bottom_if_close()

@@ -3,15 +3,11 @@
 [ext_resource type="PackedScene" uid="uid://qkrm0m368upr" path="res://UI/Login/background.tscn" id="1_u4wwk"]
 [ext_resource type="Script" uid="uid://tl5ls5wbyspo" path="res://UI/Chat/chatcontroller.gd" id="2_08j6n"]
 [ext_resource type="Script" uid="uid://4vjj6yvmab6q" path="res://UI/Chat/send_message.gd" id="3_6868q"]
+[ext_resource type="StyleBox" uid="uid://dtfwoivj8p7c1" path="res://Assets/sendbttn.tres" id="4_08j6n"]
 [ext_resource type="Script" uid="uid://bv2jcrmy2x5r2" path="res://Objects/api_client.gd" id="4_n1qtt"]
+[ext_resource type="Script" uid="uid://y1p5skbg0myn" path="res://Objects/chat_client.gd" id="6_08j6n"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u4wwk"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u4wwk"]
-bg_color = Color(0.01955414, 0.019554144, 0.019554114, 1)
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_detail = 13
 
 [node name="Chat" type="Control" unique_id=1868083925]
 layout_mode = 3
@@ -28,27 +24,37 @@ grow_vertical = 1
 
 [node name="ChatHistory" type="ScrollContainer" parent="." unique_id=1539423603]
 unique_name_in_owner = true
+clip_contents = false
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.26041666
-anchor_top = 0.043209877
-anchor_right = 0.6979167
+anchor_left = 0.27430555
+anchor_top = 0.012
+anchor_right = 0.74300003
 anchor_bottom = 0.86882716
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+offset_left = -4.0
+offset_top = -7.776
+offset_right = 0.063964844
+offset_bottom = 12.0
 grow_horizontal = 2
 grow_vertical = 2
+follow_focus = true
 horizontal_scroll_mode = 0
 script = ExtResource("2_08j6n")
 metadata/_edit_use_anchors_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ChatHistory" unique_id=1722533064]
+[node name="ChatContainer" type="VBoxContainer" parent="ChatHistory" unique_id=1722533064]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="Channel" type="Label" parent="ChatHistory/ChatContainer" unique_id=532294410]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 1, 1, 0.6392157)
+text = "Connected."
+horizontal_alignment = 1
 
 [node name="BottomBar" type="HBoxContainer" parent="." unique_id=1276907065]
 layout_mode = 1
@@ -86,13 +92,18 @@ grow_horizontal = 0
 grow_vertical = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
-theme_override_styles/normal = SubResource("StyleBoxFlat_u4wwk")
+theme_override_styles/normal = ExtResource("4_08j6n")
+theme_override_styles/pressed = ExtResource("4_08j6n")
+theme_override_styles/hover = ExtResource("4_08j6n")
 text = ">"
 
 [node name="SendMessage" type="Node" parent="BottomBar/Chat" unique_id=2111727913]
 script = ExtResource("4_n1qtt")
 metadata/_custom_type_script = "uid://bv2jcrmy2x5r2"
 
-[connection signal="resized" from="ChatHistory/VBoxContainer" to="ChatHistory" method="_on_v_box_container_resized"]
+[node name="ChatClient" type="Node" parent="." unique_id=297510875]
+script = ExtResource("6_08j6n")
+
+[connection signal="resized" from="ChatHistory/ChatContainer" to="ChatHistory" method="_on_v_box_container_resized"]
 [connection signal="text_submitted" from="BottomBar/Chat" to="BottomBar/Chat" method="_on_text_submitted"]
 [connection signal="button_up" from="BottomBar/Chat/SendButton" to="BottomBar/Chat" method="_on_send_button_button_up"]

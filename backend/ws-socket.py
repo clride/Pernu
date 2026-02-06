@@ -1,29 +1,42 @@
-# pyright: reportUnknownVariableType=false
-# pyright: ignore[reportUnknownArgumentType]
-
 from flask import Flask
-from flask_socketio import SocketIO, emit
+from flask_sock import Sock
+import json
+
 app = Flask(__name__)
-socketio = SocketIO(app, cors_allowed_origins="*")
-connections = 0
+sock = Sock(app)
 
-@socketio.on("connect")
-def on_connect():
-    global connections
-    connections += 1
-    print("Client connected, total connections:", connections)
+clients = set()
 
-@socketio.on("message_from_client")
-def handle_message(data): # type: ignore
-    print("Received:", data) #type: ignore
+@sock.route("/ws")
+def websocket(ws):
+    clients.add(ws)
+    print("Client connected, total:", len(clients))
 
-    # broadcasts to other clients (except the sender)
-    emit(
-        "server_ping",
-        {"msg": "Another client sent a message"},
-        broadcast=True,
-        include_self=False
-    )
+    try:
+        while True:
+            data = ws.receive()
+            if data is None:
+                break
+
+            msg = json.loads(data)
+
+            if msg.get("type") == "message":
+                payload = json.dumps({
+                    "type": "message",
+                    "user": msg.get("user", "anon"),
+                    "text": msg.get("text", ""),
+                })
+
+                # broadcast to everyone
+                for client in list(clients):
+                    try:
+                        client.send(payload)
+                    except:
+                        clients.remove(client)
+
+    finally:
+        clients.discard(ws)
+        print("Client disconnected, total:", len(clients))
 
 if __name__ == "__main__":
-    socketio.run(app, debug=True) #type: ignore
+    app.run(host="0.0.0.0", port=5001)
