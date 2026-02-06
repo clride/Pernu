@@ -6,10 +6,10 @@ extends VBoxContainer
 @onready var api_client: APIClient = $LoginMessagePost
 
 func show_info(text: String, is_error: bool):
-	var color: Color = Color("ffff")
+	var color: Color = Config.SUCCESS_COLOR
 	
 	if is_error:
-		color = Color(1.0, 0.828, 0.799, 1.0)
+		color = Config.ERROR_COLOR
 	
 	info.add_theme_color_override("font_color", color)
 	info.text = text
