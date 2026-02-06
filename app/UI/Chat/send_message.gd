@@ -3,6 +3,8 @@ extends LineEdit
 @onready var api_client: APIClient = $SendMessage
 @onready var send_button: Button = $SendButton
 
+@export var chat_client: ChatClient
+
 func send_triggered():
 	var msg: String = text
 	
@@ -11,7 +13,8 @@ func send_triggered():
 	
 	api_client.send_message("/messages", JSON.stringify({"message": msg}), true)
 	text = ""	
-	%ChatHistory.append_message("You", msg, true)
+	#%ChatHistory.append_message("You", msg, true)
+	chat_client.send_message(msg)
 
 func _on_send_button_button_up() -> void:
 	send_triggered()

@@ -1,7 +1,7 @@
 from argon2 import PasswordHasher
 from argon2.exceptions import VerifyMismatchError
 
-from database.dbclasses import User
+from database.classes import User
 from database.report import Report
 
 ph = PasswordHasher()

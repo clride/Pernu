@@ -19,6 +19,7 @@ def websocket(ws):
                 break
 
             msg = json.loads(data)
+            print(msg)
 
             if msg.get("type") == "message":
                 payload = json.dumps({

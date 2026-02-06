@@ -40,7 +40,7 @@ project/assembly_name="App"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godot-socketio/plugin.cfg")
+enabled=PackedStringArray()
 
 [gui]
 

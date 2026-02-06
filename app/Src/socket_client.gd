@@ -1,28 +1,38 @@
 ## WIP
 ## https://docs.godotengine.org/en/stable/tutorials/networking/websocket.html
+## Custom base class for WebSocket connections
 
-class_name ChatClient
+class_name SocketClient
 extends Node
+
+signal connected
+signal disconnected
+
+signal message_received(data: Variant)
+
+@export var endpoint: String = Config.SOCKET_URL
 
 # Our WebSocketClient instance.
 var socket = WebSocketPeer.new()
+var last_state = WebSocketPeer.STATE_CLOSED
 
+func send_json(data: Variant):
+	socket.send_text(JSON.stringify(data))
 
 func _ready():
 	# Initiate connection to the given URL.
-	var err = socket.connect_to_url(Config.SOCKET_URL)
+	var err = socket.connect_to_url(endpoint)
 	if err == OK:
-		print("Connecting to %s..." % Config.SOCKET_URL)
-		# Wait for the socket to connect.
-		await get_tree().create_timer(2).timeout
-
-		# Send data.
-		print("> Sending test packet.")
-		socket.send_text("Test packet")
+		print("Connecting to %s..." % endpoint)
 	else:
 		push_error("Unable to connect.")
 		set_process(false)
 
+func _on_string_packet(data: String):
+	pass
+
+func _on_binary_packet(data: PackedByteArray):
+	pass
 
 func _process(_delta):
 	# Call this in `_process()` or `_physics_process()`.
@@ -35,14 +45,19 @@ func _process(_delta):
 	# `WebSocketPeer.STATE_OPEN` means the socket is connected and ready
 	# to send and receive data.
 	if state == WebSocketPeer.STATE_OPEN:
+		if last_state == WebSocketPeer.STATE_CLOSED:
+			connected.emit()
+		
 		while socket.get_available_packet_count():
 			var packet = socket.get_packet()
 			if socket.was_string_packet():
 				var packet_text = packet.get_string_from_utf8()
 				print("< Got text data from server: %s" % packet_text)
+				message_received.emit(packet_text)
+				_on_string_packet(packet_text)
 			else:
 				print("< Got binary data from server: %d bytes" % packet.size())
-
+				message_received.emit(packet)
 	# `WebSocketPeer.STATE_CLOSING` means the socket is closing.
 	# It is important to keep polling for a clean close.
 	elif state == WebSocketPeer.STATE_CLOSING:
@@ -52,6 +67,7 @@ func _process(_delta):
 	# It is now safe to stop polling.
 	elif state == WebSocketPeer.STATE_CLOSED:
 		# The code will be `-1` if the disconnection was not properly notified by the remote peer.
+		disconnected.emit()
 		var code = socket.get_close_code()
 		print("WebSocket closed with code: %d. Clean: %s" % [code, code != -1])
 		set_process(false) # Stop processing.
