@@ -83,13 +83,15 @@ layout_mode = 1
 
 [node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=1286787122]
 layout_mode = 1
-anchors_preset = 5
+anchors_preset = -1
 anchor_left = 0.5
+anchor_top = 0.162
 anchor_right = 0.5
+anchor_bottom = 0.162
 offset_left = -192.0
-offset_top = 54.035
+offset_top = -9.975998
 offset_right = 195.0
-offset_bottom = 156.0335
+offset_bottom = 51.057495
 grow_horizontal = 2
 theme_override_colors/default_color = Color(0, 0, 0, 0)
 theme_override_font_sizes/normal_font_size = 44
