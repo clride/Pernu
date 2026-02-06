@@ -1,7 +1,8 @@
 # chatapp
 
 ![A showcase of the Chat UI Prototype](documentation/pictures/Chat.png)
-![A showcase of the Chat delivery system](documentation/pictures/Chat-Multiuser.png)
+![A showcase of Login UI](documentation/pictures/Login.png)
+![A showcase of the Signup UI](documentation/pictures/Create-Account-Website.png)
 
 - This is the repository of chatapp (no name currently), it contains frontend (web) backend (database (SQLite), python), and the cross-platform app (godot-widgets)
 - My first full-stack kind of project

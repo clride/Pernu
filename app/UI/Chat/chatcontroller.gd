@@ -12,7 +12,7 @@ func snap_to_bottom_if_close():
 	if max_scroll - current_scroll <= scroll_threshold:
 		get_v_scroll_bar().value = get_v_scroll_bar().max_value
 
-func append_message(username: String, content: String, from_self:bool, pfp: Texture2D = Texture2D.new()):	
+func append_message(username: String, content: String, from_self:bool, pfp: Texture2D = load("res://icon.svg")):	
 	var scene: PackedScene = load("uid://b12bjhi2dlfg6")
 	var newmsg: Message = scene.instantiate()
 	vbox.add_child(newmsg)
