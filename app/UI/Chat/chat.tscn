@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://dlsen4hd15upg" path="res://UI/Chat/connected_msg.gd" id="3_08j6n"]
 [ext_resource type="Script" uid="uid://4vjj6yvmab6q" path="res://UI/Chat/send_message.gd" id="3_6868q"]
 [ext_resource type="StyleBox" uid="uid://dtfwoivj8p7c1" path="res://Assets/sendbttn.tres" id="4_08j6n"]
+[ext_resource type="AudioStream" uid="uid://dor32iekvvohu" path="res://Sounds/Message.mp3" id="4_e80cs"]
 [ext_resource type="Script" uid="uid://bv2jcrmy2x5r2" path="res://Src/api_client.gd" id="4_n1qtt"]
 [ext_resource type="Script" uid="uid://cmu4b2edtesee" path="res://Src/chatclient.gd" id="7_0adld"]
 
@@ -61,6 +62,9 @@ theme_override_colors/font_color = Color(1, 1, 1, 0.6392157)
 text = "Connected."
 horizontal_alignment = 1
 script = ExtResource("3_08j6n")
+
+[node name="NewMessage" type="AudioStreamPlayer" parent="ChatHistory" unique_id=664765938]
+stream = ExtResource("4_e80cs")
 
 [node name="BottomBar" type="HBoxContainer" parent="." unique_id=1276907065]
 layout_mode = 1
