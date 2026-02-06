@@ -53,7 +53,7 @@ def create_app(root: str | Path) -> Flask:
 
     return app
 
-if __name__ == "__main__":
+def main(debug=False):
     BASE_DIR = Path(__file__).resolve().parent
     ROOT = (BASE_DIR / "../app/Build/wasm").resolve()
 
@@ -61,4 +61,7 @@ if __name__ == "__main__":
     PORT = 4999
 
     app = create_app(ROOT)
-    app.run(host=HOST, port=PORT)
+    app.run(host=HOST, port=PORT, debug=debug, use_reloader=False)
+
+if __name__ == "__main__":
+    main(True)

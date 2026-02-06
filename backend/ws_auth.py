@@ -59,7 +59,10 @@ def login():
     else:
         return jsonify({"status": "Invalid Username or Password!"}), 401
 
-if __name__ == '__main__':
-    print(sys.path)
+def main(debug=False):
     admin.ensure_db()
-    flaskapp.run(host='0.0.0.0', port=5000, debug=True)
+    flaskapp.run(host='0.0.0.0', port=5000, debug=debug, use_reloader=False)
+
+if __name__ == '__main__':
+    main(True)
+    

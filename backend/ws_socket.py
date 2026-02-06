@@ -76,6 +76,9 @@ def websocket(ws):
         clients.discard(client)
         print("Client disconnected, total:", len(clients))
 
-if __name__ == "__main__":
+def main(debug=False):
     admin.ensure_db()
-    app.run(host="0.0.0.0", port=5001)
+    app.run(host="0.0.0.0", port=5001, debug=debug, use_reloader=False)
+
+if __name__ == "__main__":
+    main(True)
