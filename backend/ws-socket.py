@@ -1,3 +1,5 @@
+## The backend for real-time communication using WebSockets
+
 from flask import Flask
 from flask_sock import Sock
 import sys
