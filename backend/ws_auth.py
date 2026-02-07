@@ -4,6 +4,8 @@ import os
 from flask import Flask, request, jsonify, render_template_string
 import sys
 
+from tokens import create_jwt
+
 sys.path.append('..')
 from database import admin as admin
 
@@ -55,7 +57,10 @@ def login():
     result = admin.is_valid_user(username, password)
 
     if result:
-        return jsonify({"status": "Success!"}), 200
+        # If successful, we will create an authentication token
+        token = create_jwt(admin.get_uid_by_name(username))        
+
+        return jsonify({"status": "Success!", "token": token}), 200
     else:
         return jsonify({"status": "Invalid Username or Password!"}), 401
 

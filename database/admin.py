@@ -58,6 +58,30 @@ def list_users() -> list[str]:
             for (name,) in session.query(User.name).all()
         ]
     
+def get_uid_by_name(name: str) -> int:
+    name = name.strip().lower()
+
+    with SessionLocal() as session:
+        user = session.query(User).filter_by(name=name).first()
+
+        if user is None:
+            return -1
+        
+        return user.id
+
+def get_user_by_uid(id: int) -> User:
+    with SessionLocal() as session:
+        user = session.get(id)
+        return user
+
+def get_username_by_uid(id: int) -> str:
+    user: User = get_user_by_uid(id)
+
+    if user is None:
+        return ""
+    
+    return user.name
+
 def delete_user(name: str) -> None:
     with SessionLocal() as session:
         session.query(User).filter_by(name=name).delete()
