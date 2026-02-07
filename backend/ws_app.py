@@ -16,6 +16,7 @@ def create_app(root: str | Path) -> Flask:
 
     root = Path(root).resolve()
 
+    # For hosting behind NGINX
     #app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1)
 
     @app.after_request
