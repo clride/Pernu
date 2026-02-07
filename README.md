@@ -15,11 +15,11 @@
 - [x] passwords are hashed and stored in a database
 - [x] Chatting Interface on the desktop app
 - [x] Simple message system across server and client
+- [x] Authentication tokens are generated on the server
+- [x] Authentication tokens are stored in the client's OS keychain (auto login)
 
 # Current Goals
 
-- [ ] Generate auth tokens on the server
-- [ ] Store authentication tokens in the OS keychain / auto login
 - [ ] Consider switching from SQLite to PostgreSQL
 - [ ] Consider moving the client implementation to C#
 - [ ] Implement the Server as a docker container

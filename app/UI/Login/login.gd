@@ -22,7 +22,12 @@ func login(username: String, password: String) -> bool:
 		show_info("Please fill every field.", true)
 		return false
 
-	var body = JSON.stringify(Config.get_header(username, password))
+	var body = JSON.stringify(
+		{"type": "auth",
+		"username": username,
+		"password": password
+		}
+	)
 	
 	var result = await api_client.send_message("/login", body)
 
@@ -37,9 +42,11 @@ func login(username: String, password: String) -> bool:
 	var result_text = response_body.status
 	
 	if status_code == 200:
+		var token: String = response_body.token
+		
 		show_info(result_text, false)
 		
-		Config.set_key(username, password)
+		Config.set_key(token)
 		return true
 	else:
 		show_info(result_text, true)
@@ -71,9 +78,7 @@ func _ready() -> void:
 	get_parent().hide()
 	
 	if result != null:
-		var user = result.get("username")
-		var password = result.get("password")
-		logged_in = await login(user, password)
+		logged_in = true
 	
 	if not logged_in:
 		get_parent().show()

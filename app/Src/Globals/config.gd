@@ -5,16 +5,18 @@ const SOCKET_URL: String = "ws://127.0.0.1:5001/ws"
 
 const PACKAGE_NAME: String = "ChatApp"
 
-func get_header(username, password) -> Dictionary:
+var username: String = ""
+var id: int = -1
+
+func get_header(token: String) -> Dictionary:
 	return {
 		"type": "auth",
-		"username": username,
-		"password": password
+		"token": token
 	}
 
-func set_key(username, password):
+func set_key(token: String):
 	Keyring.set_password(PACKAGE_NAME, "auth", "login", JSON.stringify(
-		get_header(username, password)
+		get_header(token)
 	)
 	)
 	
