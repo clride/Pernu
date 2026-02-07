@@ -17,7 +17,13 @@ func _on_string_packet(data: String):
 	if type == "message":
 		var message = json.text
 		var user = json.user
-		chat_controller.append_message(user, message, user == Config.get_key().username)
+		
+		var key = Config.get_key()
+		
+		if key == null:
+			return
+		
+		chat_controller.append_message(user, message, user == key.username)
 	if type == "auth":
 		var status = json.status
 		if status == "failure":

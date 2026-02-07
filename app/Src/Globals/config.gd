@@ -19,7 +19,13 @@ func set_key(username, password):
 	)
 	
 func get_key() -> Variant:
-	return JSON.parse_string(Keyring.get_password(PACKAGE_NAME, "auth", "login"))
+	var data = JSON.parse_string(Keyring.get_password(PACKAGE_NAME, "auth", "login"))
+	
+	return data
+
+func clear_key():
+	print("[Config] Clearing Key Cache")
+	Keyring.set_password(PACKAGE_NAME, "auth", "login", "")
 
 var ERROR_COLOR = Color(1.0, 0.828, 0.799, 1.0)
 var SUCCESS_COLOR = Color("ffff")

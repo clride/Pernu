@@ -12,6 +12,7 @@ signal message_received(data: Variant)
 
 @export var endpoint: String = Config.SOCKET_URL
 var is_connected_to_endpoint: bool = false
+var event_emitted: bool = false
 
 # Our WebSocketClient instance.
 var socket = WebSocketPeer.new()
@@ -48,7 +49,8 @@ func _process(_delta):
 	# to send and receive data.
 	if state == WebSocketPeer.STATE_OPEN:
 		is_connected_to_endpoint = true
-		if last_state == WebSocketPeer.STATE_CLOSED:
+		if event_emitted == false:
+			event_emitted = true
 			connected.emit()
 		
 		while socket.get_available_packet_count():
@@ -71,6 +73,7 @@ func _process(_delta):
 	elif state == WebSocketPeer.STATE_CLOSED:
 		# The code will be `-1` if the disconnection was not properly notified by the remote peer.
 		is_connected_to_endpoint = false
+		event_emitted = false
 		disconnected.emit()
 		var code = socket.get_close_code()
 		print("[SocketClient] WebSocket closed with code: %d. Clean: %s" % [code, code != -1])

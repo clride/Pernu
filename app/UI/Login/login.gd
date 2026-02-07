@@ -40,7 +40,6 @@ func login(username: String, password: String) -> bool:
 		show_info(result_text, false)
 		
 		Config.set_key(username, password)
-		
 		return true
 	else:
 		show_info(result_text, true)
@@ -50,7 +49,10 @@ func attempt_login():
 	var username: String = username_field.text
 	var password: String = password_field.text
 	
-	login(username, password)
+	var result: bool = await login(username, password)
+	
+	if result:
+		call_deferred("goto_chat_page")
 
 func _on_login_button_pressed() -> void:
 	attempt_login()
@@ -66,15 +68,15 @@ func _ready() -> void:
 	
 	var logged_in = false
 	
-	hide()
+	get_parent().hide()
 	
-	if result:
+	if result != null:
 		var user = result.get("username")
 		var password = result.get("password")
 		logged_in = await login(user, password)
 	
 	if not logged_in:
-		show()
+		get_parent().show()
 	else:
 		await get_tree().create_timer(0.4).timeout
 		call_deferred("goto_chat_page")
