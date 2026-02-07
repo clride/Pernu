@@ -71,7 +71,7 @@ def get_uid_by_name(name: str) -> int:
 
 def get_user_by_uid(id: int) -> User:
     with SessionLocal() as session:
-        user = session.get(id)
+        user = session.get(User, id)
         return user
 
 def get_username_by_uid(id: int) -> str:

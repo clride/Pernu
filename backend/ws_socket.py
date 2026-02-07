@@ -37,8 +37,7 @@ def websocket(ws):
                 break
 
             msg = json.loads(data)
-            #print(msg)
-            
+
             if client.is_authenticated is False:
                 if msg.get("type") == "auth":
                     token = msg.get("token")
@@ -52,7 +51,7 @@ def websocket(ws):
                         client.is_authenticated = True
                         client.username = username
                         client.uid = uid
-                        ws.send(json.dumps({"type": "auth", "status": "success"}))
+                        ws.send(json.dumps({"type": "auth", "status": "success", "username": username, "id": uid}))
                     else:
                         ws.send(json.dumps({"type": "auth", "status": "failure"}))
                         print(f"User failed authentication")
