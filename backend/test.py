@@ -1,3 +1,5 @@
+## A simple login test in the terminal, will probably be removed later
+
 import getpass
 import sys
 

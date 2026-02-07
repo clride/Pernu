@@ -1,3 +1,7 @@
+## An abstraction on top of
+## SocketClient that allows real-time
+## chat-communications
+
 class_name ChatClient
 extends SocketClient
 
@@ -23,12 +27,18 @@ func _on_string_packet(data: String):
 		if key == null:
 			return
 		
-		chat_controller.append_message(user, message, user == key.username)
+		chat_controller.append_message(user, message, user == Config.username)
 	if type == "auth":
 		var status = json.status
 		if status == "failure":
 			print("[ChatClient] Login Information Invalid!")
 			call_deferred("goto_login_page")
+		else:
+			var username = json.username
+			var id = json.id
+			
+			Config.username = username
+			Config.id = int(id)
 
 func _on_binary_packet(_data: PackedByteArray):
 	pass
