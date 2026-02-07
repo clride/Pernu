@@ -1,10 +1,10 @@
-# chatapp
+# Pernu
 
 ![A showcase of the Chat UI Prototype](documentation/pictures/Chat.png)
 ![A showcase of Login UI](documentation/pictures/Login.png)
 ![A showcase of the Signup UI](documentation/pictures/Create-Account-Website.png)
 
-- This is the repository of chatapp (no name currently), it contains frontend (web) backend (database (SQLite), python), and the cross-platform app (godot-widgets)
+- This is the repository of Pernu, a simple text-chat application, it contains frontend (web) backend (database (SQLite), python), and the cross-platform app (Godot)
 - My first full-stack kind of project
 - PIP dependencies are listed in pip.txt => run pip install -r pip.txt
 - other dependencies include python 3.12 and it's build components aswell as Godot 4.6
