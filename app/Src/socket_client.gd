@@ -1,7 +1,7 @@
 ## WIP
 ## https://docs.godotengine.org/en/stable/tutorials/networking/websocket.html
 ## Custom base class for WebSocket connections
-
+@abstract
 class_name SocketClient
 extends Node
 
@@ -11,7 +11,8 @@ signal disconnected
 signal message_received(data: Variant)
 
 @export var endpoint: String = Config.SOCKET_URL
-var is_connected: bool = false
+var is_connected_to_endpoint: bool = false
+var event_emitted: bool = false
 
 # Our WebSocketClient instance.
 var socket = WebSocketPeer.new()
@@ -30,11 +31,11 @@ func initialize():
 		push_error("[SocketClient] Unable to connect.")
 		set_process(false)
 
-func _on_string_packet(data: String):
-	pass
+@abstract
+func _on_string_packet(data: String)
 
-func _on_binary_packet(data: PackedByteArray):
-	pass
+@abstract
+func _on_binary_packet(data: PackedByteArray)
 
 func _process(_delta):
 	# Call this in `_process()` or `_physics_process()`.
@@ -47,8 +48,9 @@ func _process(_delta):
 	# `WebSocketPeer.STATE_OPEN` means the socket is connected and ready
 	# to send and receive data.
 	if state == WebSocketPeer.STATE_OPEN:
-		is_connected = true
-		if last_state == WebSocketPeer.STATE_CLOSED:
+		is_connected_to_endpoint = true
+		if event_emitted == false:
+			event_emitted = true
 			connected.emit()
 		
 		while socket.get_available_packet_count():
@@ -70,7 +72,8 @@ func _process(_delta):
 	# It is now safe to stop polling.
 	elif state == WebSocketPeer.STATE_CLOSED:
 		# The code will be `-1` if the disconnection was not properly notified by the remote peer.
-		is_connected = false
+		is_connected_to_endpoint = false
+		event_emitted = false
 		disconnected.emit()
 		var code = socket.get_close_code()
 		print("[SocketClient] WebSocket closed with code: %d. Clean: %s" % [code, code != -1])

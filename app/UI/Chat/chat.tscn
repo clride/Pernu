@@ -5,8 +5,12 @@
 [ext_resource type="Script" uid="uid://dlsen4hd15upg" path="res://UI/Chat/connected_msg.gd" id="3_08j6n"]
 [ext_resource type="Script" uid="uid://4vjj6yvmab6q" path="res://UI/Chat/send_message.gd" id="3_6868q"]
 [ext_resource type="StyleBox" uid="uid://dtfwoivj8p7c1" path="res://Assets/sendbttn.tres" id="4_08j6n"]
+[ext_resource type="AudioStream" uid="uid://dor32iekvvohu" path="res://Sounds/Message.mp3" id="4_e80cs"]
 [ext_resource type="Script" uid="uid://bv2jcrmy2x5r2" path="res://Src/api_client.gd" id="4_n1qtt"]
+[ext_resource type="StyleBox" uid="uid://dc351ficqnr5k" path="res://Assets/send.tres" id="5_xu2aa"]
 [ext_resource type="Script" uid="uid://cmu4b2edtesee" path="res://Src/chatclient.gd" id="7_0adld"]
+[ext_resource type="StyleBox" uid="uid://bmktbor6lllvp" path="res://Assets/SignOut.tres" id="9_7ymae"]
+[ext_resource type="Script" uid="uid://r4rditkvux" path="res://UI/Chat/sign_out.gd" id="10_jsh3p"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u4wwk"]
 
@@ -20,8 +24,6 @@ grow_vertical = 2
 
 [node name="Background" parent="." unique_id=1585861469 instance=ExtResource("1_u4wwk")]
 layout_mode = 1
-grow_horizontal = 1
-grow_vertical = 1
 
 [node name="ChatHistory" type="ScrollContainer" parent="." unique_id=1539423603]
 unique_name_in_owner = true
@@ -50,6 +52,10 @@ size_flags_vertical = 3
 metadata/_edit_use_anchors_ = true
 metadata/_edit_lock_ = true
 
+[node name="MarginContainer" type="MarginContainer" parent="ChatHistory/ChatContainer" unique_id=1954798400]
+layout_mode = 2
+theme_override_constants/margin_bottom = 7
+
 [node name="Channel" type="Label" parent="ChatHistory/ChatContainer" unique_id=532294410]
 layout_mode = 2
 size_flags_horizontal = 4
@@ -58,27 +64,37 @@ text = "Connected."
 horizontal_alignment = 1
 script = ExtResource("3_08j6n")
 
+[node name="NewMessage" type="AudioStreamPlayer" parent="ChatHistory" unique_id=664765938]
+stream = ExtResource("4_e80cs")
+
 [node name="BottomBar" type="HBoxContainer" parent="." unique_id=1276907065]
 layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = -1
+anchor_left = 0.3383325
+anchor_top = 1.0061729
+anchor_right = 0.6853325
+anchor_bottom = 1.0061729
+offset_left = 0.2409668
 offset_top = -48.0
+offset_right = -1.5068359
 grow_horizontal = 2
 grow_vertical = 0
+alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="Chat" type="LineEdit" parent="BottomBar" unique_id=1266123946 node_paths=PackedStringArray("chat_client")]
 custom_minimum_size = Vector2(316.84, 39.195)
 layout_mode = 2
-size_flags_horizontal = 6
+size_flags_horizontal = 3
 size_flags_vertical = 4
+theme_override_styles/normal = ExtResource("5_xu2aa")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_u4wwk")
 placeholder_text = "Enter your message here..."
 keep_editing_on_text_submit = true
 context_menu_enabled = false
 script = ExtResource("3_6868q")
 chat_client = NodePath("../../ChatClient")
+metadata/_edit_lock_ = true
 
 [node name="SendButton" type="Button" parent="BottomBar/Chat" unique_id=1616938993]
 layout_mode = 1
@@ -108,7 +124,25 @@ metadata/_custom_type_script = "uid://bv2jcrmy2x5r2"
 script = ExtResource("7_0adld")
 chat_controller = NodePath("../ChatHistory")
 
+[node name="SignOut" type="Button" parent="." unique_id=1546831736]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -90.0
+offset_top = -40.0
+offset_right = -5.0
+offset_bottom = -6.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_styles/normal = ExtResource("9_7ymae")
+text = "Sign Out"
+script = ExtResource("10_jsh3p")
+
 [connection signal="resized" from="ChatHistory/ChatContainer" to="ChatHistory" method="_on_v_box_container_resized"]
 [connection signal="text_submitted" from="BottomBar/Chat" to="BottomBar/Chat" method="_on_text_submitted"]
 [connection signal="button_up" from="BottomBar/Chat/SendButton" to="BottomBar/Chat" method="_on_send_button_button_up"]
 [connection signal="connected" from="ChatClient" to="ChatHistory/ChatContainer/Channel" method="_on_chat_client_connected"]
+[connection signal="pressed" from="SignOut" to="SignOut" method="_on_pressed"]

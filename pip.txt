@@ -3,3 +3,5 @@ argon2-cffi
 flask
 flask-sock
 wheel
+pyjwt
+crypto

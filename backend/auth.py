@@ -1,5 +1,9 @@
+## Authentication module. Handles password hashing and
+## web token confirmation
+
 from argon2 import PasswordHasher
 from argon2.exceptions import VerifyMismatchError
+
 
 from database.classes import User
 from database.report import Report
@@ -28,6 +32,6 @@ def login_valid(user: User, password: str) -> bool:
         return True
     except VerifyMismatchError:
         return False
-    
+
 def hash_password(password: str) -> str:
     return ph.hash(password)

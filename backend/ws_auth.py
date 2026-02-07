@@ -4,6 +4,8 @@ import os
 from flask import Flask, request, jsonify, render_template_string
 import sys
 
+from tokens import create_jwt
+
 sys.path.append('..')
 from database import admin as admin
 
@@ -40,14 +42,14 @@ def register():
 
     result = admin.create_user(username, password)
     if result.is_error:
-        return jsonify({"error": result.information}), 400
+        return jsonify({"message": result.information}), 400
     
     return jsonify({"message": "Account created successfully!"}), 200
 
 @flaskapp.route('/login', methods=['POST'])
 def login():
     if not request.is_json:
-        return jsonify({"error": "Expected JSON"}), 400
+        return jsonify({"message": "Expected JSON"}), 400
 
     data = request.get_json(force=True)
     username = data.get('username')
@@ -55,11 +57,17 @@ def login():
     result = admin.is_valid_user(username, password)
 
     if result:
-        return jsonify({"status": "Success!"}), 200
+        # If successful, we will create an authentication token
+        token = create_jwt(admin.get_uid_by_name(username))        
+
+        return jsonify({"status": "Success!", "token": token}), 200
     else:
         return jsonify({"status": "Invalid Username or Password!"}), 401
 
-if __name__ == '__main__':
-    print(sys.path)
+def main(debug=False):
     admin.ensure_db()
-    flaskapp.run(host='0.0.0.0', port=5000, debug=True)
+    flaskapp.run(host='0.0.0.0', port=5000, debug=debug, use_reloader=False)
+
+if __name__ == '__main__':
+    main(True)
+    

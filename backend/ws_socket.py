@@ -5,6 +5,8 @@ from flask_sock import Sock
 import sys
 import json
 
+from tokens import confirm_jwt, jwt_result
+
 sys.path.append('..')
 from database import admin as admin
 
@@ -17,6 +19,7 @@ class Client:
     ws = None
     is_authenticated: bool = False
     username = ""
+    uid = -1
     
     def __init__(self, ws):
         self.ws = ws
@@ -34,23 +37,24 @@ def websocket(ws):
                 break
 
             msg = json.loads(data)
-            #print(msg)
 
-            # WIP simple solution
-            # Will be changed to token-based auth later
             if client.is_authenticated is False:
                 if msg.get("type") == "auth":
-                    username = msg.get("username", "")
-                    password = msg.get("password", "")
-                    # Simple token check for demonstration
-                    if admin.is_valid_user(username, password):
+                    token = msg.get("token")
+                    result: jwt_result = confirm_jwt(token)
+                    success: bool = result.success
+
+                    if success:
+                        uid = result.uid
+                        username = admin.get_username_by_uid(uid)
                         print(f"User {username} authenticated successfully")
                         client.is_authenticated = True
                         client.username = username
-                        ws.send(json.dumps({"type": "auth", "status": "success"}))
+                        client.uid = uid
+                        ws.send(json.dumps({"type": "auth", "status": "success", "username": username, "id": uid}))
                     else:
                         ws.send(json.dumps({"type": "auth", "status": "failure"}))
-                        print(f"User claiming to be '{username}' failed authentication")
+                        print(f"User failed authentication")
                         clients.discard(client)
                         break
                 else:
@@ -76,6 +80,9 @@ def websocket(ws):
         clients.discard(client)
         print("Client disconnected, total:", len(clients))
 
-if __name__ == "__main__":
+def main(debug=False):
     admin.ensure_db()
-    app.run(host="0.0.0.0", port=5001)
+    app.run(host="0.0.0.0", port=5001, debug=debug, use_reloader=False)
+
+if __name__ == "__main__":
+    main(True)

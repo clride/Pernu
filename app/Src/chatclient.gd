@@ -1,7 +1,14 @@
+## An abstraction on top of
+## SocketClient that allows real-time
+## chat-communications
+
 class_name ChatClient
 extends SocketClient
 
 @export var chat_controller: ChatController
+
+func goto_login_page():
+	get_tree().change_scene_to_file("uid://ctylr1aydvbrg")
 
 func _on_string_packet(data: String):
 	var json = JSON.parse_string(data)
@@ -14,11 +21,27 @@ func _on_string_packet(data: String):
 	if type == "message":
 		var message = json.text
 		var user = json.user
+		
+		var key = Config.get_key()
+		
+		if key == null:
+			return
+		
 		chat_controller.append_message(user, message, user == Config.username)
 	if type == "auth":
 		var status = json.status
 		if status == "failure":
-			get_tree().change_scene_to_file("res://UI/login.tscn")
+			print("[ChatClient] Login Information Invalid!")
+			call_deferred("goto_login_page")
+		else:
+			var username = json.username
+			var id = json.id
+			
+			Config.username = username
+			Config.id = int(id)
+
+func _on_binary_packet(_data: PackedByteArray):
+	pass
 
 func send_message(data: String):
 	send_json({
@@ -28,7 +51,7 @@ func send_message(data: String):
 		})
 		
 func on_connect_send_auth():
-	send_json({"type": "auth", "username": Config.username, "password": Config.password})
+	send_json(Config.get_key())
 
 func _ready():
 	initialize()

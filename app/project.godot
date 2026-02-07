@@ -33,6 +33,7 @@ Config="*uid://by3klwqvjr4ln"
 window/size/mode=2
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+window/stretch/scale=1.1
 
 [dotnet]
 
