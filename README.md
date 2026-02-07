@@ -21,4 +21,5 @@
 - [ ] Generate auth tokens on the server
 - [ ] Store authentication tokens in the OS keychain / auto login
 - [ ] Consider switching from SQLite to PostgreSQL
+- [ ] Consider moving the client implementation to C#
 - [ ] Implement the Server as a docker container
