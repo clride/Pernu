@@ -1,6 +1,4 @@
-# Chatapp (No name currently)
-
-- This is the folder containing the source code for the Desktop/Web/Mobile builds of the app. Code is prototyped in GDscript and could later be easily converted to C# (which sadly does not support web builds, so it'll be decided later)
+- This is the folder containing the source code for the Desktop/Web/Mobile builds of the app. Code is prototyped in GDscript, which I may consider porting to C# later on.
 
 # How to build
 
